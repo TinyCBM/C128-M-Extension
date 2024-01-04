@@ -1,0 +1,31 @@
+name: build-test-disk
+on:
+  workflow_dispatch:
+    inputs:
+      format:
+        description: 'Format'
+        default: 'd64'
+        required: true
+        type: choice
+        options:
+          - d64
+          - d71
+
+jobs:
+  builddisk:
+    runs-on: ubuntu-latest
+
+    steps:
+        - uses: actions/checkout@v4
+
+        - name: Print selected format
+          run: 'echo "Selected Format: ${{ inputs.format }}"'
+
+        - name: install ubuntu packages
+          uses: awalsh128/cache-apt-pkgs-action@latest
+          with:
+            packages: acme
+            version: 1.0
+
+        - name: Print acme Version
+          run: 'acme -V'
