@@ -29,3 +29,6 @@ jobs:
 
         - name: Print acme Version
           run: 'acme -V'
+
+        - name: Print python Version
+          run: 'python3 -V'
