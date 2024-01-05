@@ -24,7 +24,7 @@ jobs:
         - name: install ubuntu packages
           uses: awalsh128/cache-apt-pkgs-action@latest
           with:
-            packages: acme
+            packages: acme vice
             version: 1.0
 
         - name: Print acme Version
@@ -32,3 +32,6 @@ jobs:
 
         - name: Print python Version
           run: 'python3 -V'
+
+        - name: Print c1541 Version
+          run: 'c1541 -version'
