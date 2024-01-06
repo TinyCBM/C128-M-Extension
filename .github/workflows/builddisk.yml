@@ -27,6 +27,9 @@ jobs:
             packages: acme vice
             version: 1.0
 
+        - name: Print hexdump Version
+          run: 'hexdump -V'
+
         - name: Print acme Version
           run: 'acme -V'
 
@@ -35,3 +38,9 @@ jobs:
 
         - name: Print c1541 Version
           run: 'c1541 -version'
+
+        - name: Create empty disk image and show dir
+          run: |
+           c1541 -format "dmon128,6b" ${{ inputs.format }} dmon128.${{ inputs.format }} 8
+           c1541 dmon128.${{ inputs.format }} -dir
+           c1541 dmon128.${{ inputs.format }} -block 18 0
