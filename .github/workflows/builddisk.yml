@@ -11,6 +11,21 @@ on:
           - d64
           - d71
 
+permissions:
+  actions: read
+  checks: read
+  contents: read
+  deployments: read
+  id-token: read
+  issues: none
+  discussions: none
+  packages: write
+  pages: none
+  pull-requests: read
+  repository-projects: read
+  security-events: none
+  statuses: read
+
 jobs:
   builddisk:
     runs-on: ubuntu-latest
