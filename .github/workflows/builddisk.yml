@@ -92,8 +92,8 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: ${{ github.ref }}
-            release_name: Release ${{ github.ref }}
+            tag_name: v1.0-b
+            release_name: Release V1.0-b
             draft: false
             prerelease: true
 
