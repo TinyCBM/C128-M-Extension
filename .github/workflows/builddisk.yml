@@ -39,6 +39,9 @@ jobs:
         - name: Print c1541 Version
           run: 'c1541 -version'
 
+        - name: Create build folder
+          run: 'mkdir build'
+
         - name: Build bootsector
           run: 'acme -r build/bootsector.report src/bootsector.asm'
 
@@ -47,7 +50,6 @@ jobs:
 
         - name: Create empty disk image and show dir
           run: |
-           ls -la
            c1541 -format "dmon128,6b" ${{ inputs.format }} dmon128.${{ inputs.format }} 8
            c1541 dmon128.${{ inputs.format }} -bpoke 18 0 4 0x14 0xfe
            c1541 dmon128.${{ inputs.format }} -bwrite build/bootsector.prg 1 0 8
