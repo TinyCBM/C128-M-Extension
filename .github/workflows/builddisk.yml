@@ -14,7 +14,7 @@ on:
 permissions:
   actions: read
   checks: read
-  contents: read
+  contents: write
   deployments: read
   id-token: none
   issues: none
@@ -86,24 +86,35 @@ jobs:
           run: |
             zip --junk-paths dmon128.zip dmon128.${{ inputs.format }} README.md docs/description.md
 
-        - name: Create Release
-          id: create_release
-          uses: actions/create-release@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            tag_name: v1.0-b
-            release_name: Release V1.0-b
-            draft: false
-            prerelease: true
+#        - name: Create Release
+#          id: create_release
+#          uses: actions/create-release@v1
+#          env:
+#            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          with:
+#            tag_name: v1.0-b
+#            release_name: Release V1.0-b
+#            draft: false
+#            prerelease: true
 
-        - name: Upload Release Asset
+#        - name: Upload Release Asset
+#          id: upload-release-asset
+#          uses: actions/upload-release-asset@v1
+#          env:
+#            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          with:
+#            upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+#            asset_path: ./dmon128.zip
+#            asset_name: dmon128.zip
+#            asset_content_type: application/zip
+
+        - name: Upload binaries to release
           id: upload-release-asset
-          uses: actions/upload-release-asset@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          uses: svenstaro/upload-release-action@v2
           with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-            asset_path: ./dmon128.zip
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            file: ./dmon128.zip
             asset_name: dmon128.zip
-            asset_content_type: application/zip
+            tag: "v1.0-b"
+            overwrite: true
+            body: "DMon128 Bootdisk"
